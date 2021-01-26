@@ -11,7 +11,7 @@
 
     <artifactId>eurekaserver</artifactId>
     <properties>
-        <eureka.version>2.2.5.RELEASE</eureka.version>
+        <eureka.version>3.0.0</eureka.version>
     </properties>
     <dependencies>
         <dependency>
