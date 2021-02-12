@@ -24,20 +24,20 @@ import java.util.Set;
 @AllArgsConstructor
 @Data
 public class ProblemType {
-    @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "problem_type_id", columnDefinition = "VARCHAR(255)")
-    private String id;
-    private String type;
+  @Id
+  @GeneratedValue(generator = "uuid2")
+  @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
+  @Column(name = "problem_type_id", columnDefinition = "VARCHAR(255)")
+  private String id;
 
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    @ManyToMany(fetch= FetchType.EAGER)
-    @JoinTable(
-            name = "record_type_table",
-            joinColumns = {@JoinColumn(name = "problem_type_id")},
-            inverseJoinColumns = {@JoinColumn(name = "medical_record_id")}
-    )
-    private Set<MedicalRecord> medicalRecords;
+  private String type;
+
+  @EqualsAndHashCode.Exclude
+  @ToString.Exclude
+  @ManyToMany(fetch = FetchType.LAZY)
+  @JoinTable(
+      name = "record_type_table",
+      joinColumns = {@JoinColumn(name = "problem_type_id")},
+      inverseJoinColumns = {@JoinColumn(name = "medical_record_id")})
+  private Set<MedicalRecord> medicalRecords;
 }
