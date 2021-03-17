@@ -1,9 +1,8 @@
 package com.belstu.thesisproject.psychouserservice.domain;
 
+import javax.persistence.Entity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.Entity;
 
 @Entity(name = "patients")
 @NoArgsConstructor
