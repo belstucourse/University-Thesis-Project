@@ -1,5 +1,6 @@
 package com.belstu.thesisproject.getawayservice.config;
 
+import com.belstu.thesisproject.getawayservice.auth.AuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,36 +12,30 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import javax.servlet.http.HttpServletResponse;
 
+import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
+import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
+
 @EnableWebSecurity
 @Configuration
 @RequiredArgsConstructor
 public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
     private final JwtConfig jwtConfig;
+    private final AuthenticationFilter authenticationFilter;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                // make sure we use stateless session; session won't be used to store user's state.
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionManagement().sessionCreationPolicy(STATELESS)
                 .and()
-                // handle an authorized attempts
-                .exceptionHandling().authenticationEntryPoint((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_UNAUTHORIZED))
+                .exceptionHandling().authenticationEntryPoint((req, rsp, e) -> rsp.sendError(SC_UNAUTHORIZED))
                 .and()
-                // Add a filter to validate the tokens with every request
-                .addFilterAfter(new JwtTokenAuthenticationFilter(jwtConfig), UsernamePasswordAuthenticationFilter.class)
-                // authorization requests config
+                .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                // allow all who are accessing "auth" service
-                .antMatchers(HttpMethod.POST, jwtConfig.getUri()).permitAll()
-                // must be an admin if trying to access admin area (authentication is also required here)
+                .antMatchers(POST, jwtConfig.getUri()).permitAll()
                 .antMatchers("/gallery" + "/admin/**").hasRole("ADMIN")
-                // Any other request must be authenticated
                 .anyRequest().authenticated();
     }
 
-    @Bean
-    public JwtConfig jwtConfig() {
-        return new JwtConfig();
-    }
 }
