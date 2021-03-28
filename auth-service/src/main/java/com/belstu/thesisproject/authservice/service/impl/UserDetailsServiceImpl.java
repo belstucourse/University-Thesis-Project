@@ -1,4 +1,4 @@
-package com.belstu.thesisproject.authservice.service;
+package com.belstu.thesisproject.authservice.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
