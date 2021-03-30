@@ -1,6 +1,5 @@
-package com.belstu.thesisproject.psychouserservice.dto;
+package com.belstu.thesisproject.authservice.dto.user;
 
-import com.belstu.thesisproject.psychouserservice.domain.Complaint;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +8,7 @@ import java.util.Set;
 
 @Data
 @NoArgsConstructor
-public class PatientDto extends UserDto{
+public class PatientDto extends UserDto {
 
     @Builder(builderMethodName = "childBuilder")
 
