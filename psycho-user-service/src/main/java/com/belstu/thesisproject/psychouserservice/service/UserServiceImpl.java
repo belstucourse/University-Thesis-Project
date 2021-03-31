@@ -10,20 +10,20 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
-    private final UserRepository userRepository;
+  private final UserRepository userRepository;
 
-    @Override
-    public User getUserById(final String id) throws UserNotFoundException {
-        return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
-    }
+  @Override
+  public User getUserById(final String id) throws UserNotFoundException {
+    return userRepository.findById(id).orElseThrow(UserNotFoundException::new);
+  }
 
-    @Override
-    public User save(final User user) {
-        return userRepository.save(user);
-    }
+  @Override
+  public User save(final User user) {
+    return userRepository.save(user);
+  }
 
-    @Override
-    public User getUserByUsername(final String username) throws UserNotFoundException {
-        return userRepository.findByUsername(username).orElseThrow(UserNotFoundException::new);
-    }
+  @Override
+  public User getUserByUsername(final String username) throws UserNotFoundException {
+    return userRepository.findByUsername(username).orElseThrow(UserNotFoundException::new);
+  }
 }

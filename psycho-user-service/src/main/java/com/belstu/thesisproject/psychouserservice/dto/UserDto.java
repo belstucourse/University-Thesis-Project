@@ -1,25 +1,20 @@
 package com.belstu.thesisproject.psychouserservice.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.util.Set;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
-@Builder
+@AllArgsConstructor
 public class UserDto {
-    private String id;
+  private String id;
 
-    private String name;
-    private String username;
-    private String email;
-    private String password;
+  private String name;
+  private String username;
+  private String email;
+  private String password;
 
-    private Set<RoleDto> roles;
+  private Set<RoleDto> roles;
 
-    private Set<ComplaintDto> complaints;
+  private Set<ComplaintDto> complaints;
 }

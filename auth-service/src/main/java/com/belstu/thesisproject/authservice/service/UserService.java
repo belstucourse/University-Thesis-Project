@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient("psycho-user-service")
 public interface UserService {
-    @GetMapping("/greeting")
-    UserDto getUserByUsername(@RequestParam(name="username") final String username);
+  @GetMapping("/greeting")
+  UserDto getUserByUsername(@RequestParam(name = "username") final String username);
 }
