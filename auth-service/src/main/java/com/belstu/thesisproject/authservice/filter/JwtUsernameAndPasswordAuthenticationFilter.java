@@ -3,7 +3,6 @@ package com.belstu.thesisproject.authservice.filter;
 import com.belstu.thesisproject.authservice.config.JwtConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.Data;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,13 +13,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Date;
-import java.util.stream.Collectors;
 
 import static io.jsonwebtoken.SignatureAlgorithm.HS512;
 import static java.util.stream.Collectors.toList;
@@ -61,8 +58,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter
             HttpServletRequest request,
             HttpServletResponse response,
             FilterChain chain,
-            Authentication auth)
-            throws IOException, ServletException {
+            Authentication auth){
 
         Long now = System.currentTimeMillis();
         String token =
