@@ -11,10 +11,10 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class ComplaintDto {
-    private String id;
+  private String id;
 
-    private ComplaintType complaintType;
+  private ComplaintType complaintType;
 
-    private String title;
-    private String message;
+  private String title;
+  private String message;
 }

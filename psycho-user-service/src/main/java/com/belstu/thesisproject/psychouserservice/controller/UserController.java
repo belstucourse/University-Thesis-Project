@@ -18,22 +18,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/users")
 @AllArgsConstructor
 public class UserController {
-    private final UserService userService;
-    private final UserMapper userMapper;
+  private final UserService userService;
+  private final UserMapper userMapper;
 
-    @GetMapping("/{id}")
-    public UserDto getUserById(@PathVariable final String id) throws UserNotFoundException {
-        return userMapper.toDto(userService.getUserById(id));
-    }
+  @GetMapping("/{id}")
+  public UserDto getUserById(@PathVariable final String id) throws UserNotFoundException {
+    return userMapper.toDto(userService.getUserById(id));
+  }
 
-    @GetMapping
-    public UserDto getUserByUsername(@RequestParam final String username) throws UserNotFoundException {
-        return userMapper.toDto(userService.getUserByUsername(username));
-    }
+  @GetMapping
+  public UserDto getUserByUsername(@RequestParam final String username)
+      throws UserNotFoundException {
+    return userMapper.toDto(userService.getUserByUsername(username));
+  }
 
-    @PostMapping
-    public UserDto saveUser(@RequestBody final UserDto userDto) {
-        final User user = userMapper.toEntity(userDto);
-        return userMapper.toDto(userService.save(user));
-    }
+  @PostMapping
+  public UserDto saveUser(@RequestBody final UserDto userDto) {
+    final User user = userMapper.toEntity(userDto);
+    return userMapper.toDto(userService.save(user));
+  }
 }

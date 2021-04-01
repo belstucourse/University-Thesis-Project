@@ -6,9 +6,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class BeanConfig {
-    @Bean
-    public UserMapper userMapper()
-    {
-        return UserMapper.INSTANCE;
-    }
+  @Bean
+  public UserMapper userMapper() {
+    return UserMapper.INSTANCE;
+  }
 }
