@@ -6,10 +6,9 @@ spring:
   # Obtain config from config service
   cloud:
     config:
-      fail-fast: true
-      discovery:
-        enabled: true
-        service-id: eureka-server
+      uri: http://localhost:8003
+      name: zool-api-getaway-server
+      fail-fast: false
 
 # Connect to Eureka
 eureka:

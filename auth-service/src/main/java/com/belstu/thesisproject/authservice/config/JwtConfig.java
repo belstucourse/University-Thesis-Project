@@ -1,26 +1,26 @@
 package com.belstu.thesisproject.authservice.config;
 
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
+@NoArgsConstructor
 @Data
 public class JwtConfig {
-  @Value("${security.jwt.uri:/auth/**}")
-  private final String Uri;
+  @Value("${security.jwt.uri}")
+  private String Uri;
 
-  @Value("${security.jwt.header:Authorization}")
-  private final String header;
+  @Value("${security.jwt.header}")
+  private String header;
 
-  @Value("${security.jwt.prefix:Bearer }")
-  private final String prefix;
+  @Value("${security.jwt.prefix}")
+  private String prefix;
 
-  @Value("${security.jwt.expiration:#{24*60*60}}")
-  private final int expiration;
+  @Value("${security.jwt.expiration}")
+  private int expiration;
 
-  @Value("${security.jwt.secret:JwtSecretKey}")
-  private final String secret;
+  @Value("${security.jwt.secret}")
+  private String secret;
 }

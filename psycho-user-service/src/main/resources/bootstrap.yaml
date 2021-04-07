@@ -5,16 +5,14 @@ spring:
 
   # Obtain config from config service
   cloud:
-    config:
-      fail-fast: true
-      discovery:
-        enabled: true
-        service-id: eureka-server
+    cloud:
+      config:
+        uri: http://localhost:8003
+        name: psycho-user-service
+        fail-fast: false
 
 # Connect to Eureka
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
-    # This application will not registered in Eureka
-    register-with-eureka: false

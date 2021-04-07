@@ -1,0 +1,20 @@
+server:
+  port: 4000
+zuul:
+  ignored-services: *
+  routes:
+    gallery-service:
+      path: /gallery/**
+      service-id: gallery-service
+    auth-service:
+      path: /auth/**
+      service-id: auth-service
+      strip-prefix: false
+      sensitive-headers: Cookie,Set-Cookie
+security:
+  jwt:
+    uri: /auth/**
+    header: Authorization
+    prefix: Bearer
+    expiration: 34560
+    secret: JwtSecretKey

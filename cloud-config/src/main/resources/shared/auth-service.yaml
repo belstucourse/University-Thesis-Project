@@ -1,0 +1,9 @@
+server:
+  port: 8004
+security:
+  jwt:
+    uri: /auth/**
+    header: Authorization
+    prefix: Bearer
+    expiration: 34560
+    secret: JwtSecretKey
