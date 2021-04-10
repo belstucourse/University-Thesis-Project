@@ -31,11 +31,15 @@
         <groupId>org.springframework.cloud</groupId>
         <artifactId>spring-cloud-config-client</artifactId>
     </dependency>
-
+    <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-core</artifactId>
+        <version>5.4.2.Final</version>
+    </dependency>
     <dependency>
         <groupId>org.postgresql</groupId>
         <artifactId>postgresql</artifactId>
-        <version>42.2.10</version>
+        <scope>runtime</scope>
     </dependency>
 </dependencies>
 

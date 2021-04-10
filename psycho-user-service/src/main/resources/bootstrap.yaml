@@ -5,11 +5,10 @@ spring:
 
   # Obtain config from config service
   cloud:
-    cloud:
-      config:
-        uri: http://localhost:8003
-        name: psycho-user-service
-        fail-fast: false
+    config:
+      uri: http://localhost:8003
+      name: psycho-user-service
+      fail-fast: false
 
 # Connect to Eureka
 eureka:

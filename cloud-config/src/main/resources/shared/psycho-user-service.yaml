@@ -5,8 +5,12 @@ spring:
     url: ${POSTGRES_DATABASE_URL:jdbc:postgresql://localhost:5432/customers}
     username: ${POSTGRES_DATABASE_USERNAME:postgres}
     password: ${POSTGRES_DATABASE_PASSWORD:1234}
-    driver-class-name: org.postgresql.Driver
   jpa:
-    database: postgresql
-    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+#    properties:
+#      hibernate:
+#        temp:
+#          use_jdbc_metadata_defaults: false
+#        jdbc:
+#          lob:
+#            non_contextual_creation: true
     generate-ddl: true
