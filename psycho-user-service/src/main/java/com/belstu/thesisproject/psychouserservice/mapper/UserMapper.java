@@ -2,8 +2,8 @@ package com.belstu.thesisproject.psychouserservice.mapper;
 
 import static java.lang.String.format;
 
-import com.belstu.thesisproject.psychouserservice.domain.Doctor;
-import com.belstu.thesisproject.psychouserservice.domain.Patient;
+import com.belstu.thesisproject.psychouserservice.domain.Client;
+import com.belstu.thesisproject.psychouserservice.domain.Psychologist;
 import com.belstu.thesisproject.psychouserservice.domain.User;
 import com.belstu.thesisproject.psychouserservice.dto.DoctorDto;
 import com.belstu.thesisproject.psychouserservice.dto.PatientDto;
@@ -16,9 +16,9 @@ import org.mapstruct.factory.Mappers;
 public interface UserMapper {
   UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-  Patient toPatientEntity(UserDto userDto);
+  Client toPatientEntity(UserDto userDto);
 
-  Doctor toDoctorEntity(UserDto userDto);
+  Psychologist toDoctorEntity(UserDto userDto);
 
   UserDto toDto(User user);
 

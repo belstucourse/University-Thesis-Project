@@ -1,7 +1,12 @@
 package com.belstu.thesisproject.psychouserservice.domain;
 
-import java.util.Set;
-import javax.persistence.CascadeType;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,14 +17,9 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-import org.hibernate.annotations.GenericGenerator;
+import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -28,29 +28,45 @@ import org.hibernate.annotations.GenericGenerator;
 @AllArgsConstructor
 @Data
 public abstract class User {
-  @Id
-  @GeneratedValue(generator = "uuid2")
-  @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
-  @Column(name = "user_id", columnDefinition = "VARCHAR(255)")
-  private String id;
+    @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "id", columnDefinition = "VARCHAR(255)")
+    private String id;
 
-  private String name;
-  private String username;
-  private String email;
-  private String password;
+    @Column(name = "first_name", length = 100, nullable = false)
+    private String firstName;
 
-  @EqualsAndHashCode.Exclude
-  @ToString.Exclude
-  @ManyToMany(fetch = FetchType.LAZY)
-  @JoinTable(
-      name = "user_role",
-      joinColumns = @JoinColumn(name = "user_id"),
-      inverseJoinColumns = @JoinColumn(name = "role_id"))
-  private Set<Role> roles;
+    @Column(name = "middle_name", length = 100, nullable = false)
+    private String middleName;
 
-  @OneToMany(
-      mappedBy = "user",
-      fetch = FetchType.LAZY,
-      cascade = {CascadeType.ALL}) // change cascade type after
-  private Set<Complaint> complaints;
+    @Column(name = "last_name", length = 100, nullable = false)
+    private String lastName;
+
+    @Column(name = "register_date",nullable = false, updatable = false)
+    private LocalDate registerDate;
+
+    @Column(name = "is_deactivated", nullable = false)
+    private Boolean deactivated;
+
+    @Column(name = "deactivated_date")
+    private LocalDate deactivatedDate;
+
+    @Column(name = "image_url", unique = true)
+    private String imageUrl;
+
+    @Column(name = "email", unique = true, length = 100, nullable = false)
+    private String email;
+
+    @Column(name = "password", nullable = false)
+    private String password;
+
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 }

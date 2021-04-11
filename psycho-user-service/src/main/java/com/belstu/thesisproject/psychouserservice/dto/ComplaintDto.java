@@ -1,6 +1,5 @@
 package com.belstu.thesisproject.psychouserservice.dto;
 
-import com.belstu.thesisproject.psychouserservice.domain.ComplaintType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
