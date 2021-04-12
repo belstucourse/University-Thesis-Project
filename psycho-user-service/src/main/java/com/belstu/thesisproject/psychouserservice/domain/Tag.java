@@ -1,9 +1,7 @@
 package com.belstu.thesisproject.psychouserservice.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -17,8 +15,6 @@ import javax.persistence.ManyToMany;
 import java.util.Set;
 
 @Entity(name = "tag")
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
 public class Tag {
     @Id

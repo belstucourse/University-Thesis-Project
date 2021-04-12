@@ -24,8 +24,6 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
 public abstract class User {
     @Id

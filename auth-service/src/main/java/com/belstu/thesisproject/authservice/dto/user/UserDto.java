@@ -1,24 +1,45 @@
 package com.belstu.thesisproject.authservice.dto.user;
 
-import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.util.Set;
+
+//todo in the end recompile into separate jar archive
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-@Builder
-public class UserDto {
+@JsonTypeInfo(use=JsonTypeInfo.Id.NAME, property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(SupportDto.class),
+        @JsonSubTypes.Type(PsychologistDto.class),
+        @JsonSubTypes.Type(ClientDto.class),
+        @JsonSubTypes.Type(AdminDto.class)
+})
+public abstract class UserDto {
   private String id;
 
-  private String name;
-  private String username;
+  private String firstName;
+
+  private String middleName;
+
+  private String lastName;
+
+  private LocalDate registerDate;
+
+  private Boolean deactivated;
+
+  private LocalDate deactivatedDate;
+
+  private String imageUrl;
+
   private String email;
+
   private String password;
 
   private Set<RoleDto> roles;
-
-  private Set<ComplaintDto> complaints;
 }

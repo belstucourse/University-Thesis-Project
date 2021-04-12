@@ -15,9 +15,9 @@ import java.util.Set;
 @ToString(callSuper = true)
 @Getter
 @Setter
-@JsonTypeName("admin")
-public class AdminDto extends UserDto{
-    public AdminDto(String id, String firstName, String middleName, String lastName, LocalDate registerDate, Boolean deactivated, LocalDate deactivatedDate, String imageUrl, String email, String password, Set<RoleDto> roles) {
+@JsonTypeName("client")
+public class ClientDto extends UserDto {
+    public ClientDto(String id, String firstName, String middleName, String lastName, LocalDate registerDate, Boolean deactivated, LocalDate deactivatedDate, String imageUrl, String email, String password, Set<RoleDto> roles) {
         super(id, firstName, middleName, lastName, registerDate, deactivated, deactivatedDate, imageUrl, email, password, roles);
     }
 }
