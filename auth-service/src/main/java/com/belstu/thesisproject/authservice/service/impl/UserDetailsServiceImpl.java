@@ -21,7 +21,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
   public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
     final UserDto user = userService.getUserByUsername(username);
     return new User(
-        user.getUsername(), user.getPassword(), convertRolesToAuthorities(user.getRoles()));
+        user.getEmail(), user.getPassword(), convertRolesToAuthorities(user.getRoles()));
   }
 
   private Collection<? extends GrantedAuthority> convertRolesToAuthorities(

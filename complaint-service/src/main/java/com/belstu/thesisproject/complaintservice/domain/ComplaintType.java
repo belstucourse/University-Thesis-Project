@@ -1,4 +1,4 @@
-package com.belstu.thesisproject.authservice.dto.user;
+package com.belstu.thesisproject.complaintservice.domain;
 
 public enum ComplaintType {
   TRIVIAL,

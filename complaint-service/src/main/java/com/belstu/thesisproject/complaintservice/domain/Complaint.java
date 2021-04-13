@@ -1,14 +1,13 @@
-package com.belstu.thesisproject.psychouserservice.domain;
+package com.belstu.thesisproject.complaintservice.domain;
 
+import static javax.persistence.EnumType.STRING;
+
+import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,7 +15,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name = "complains")
+@Table(name = "complaint")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -27,13 +26,16 @@ public class Complaint {
   @Column(name = "complaint_id", columnDefinition = "VARCHAR(255)")
   private String id;
 
-  @Enumerated(EnumType.ORDINAL)
+  private String reviewerId;
+  private String clientId;
+
+  @Enumerated(STRING)
   private ComplaintType complaintType;
 
   private String title;
-  private String message;
+  private String complaintText;
+  private String answerText;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id")
-  private User user;
+  private LocalDate reviewDate;
+  private LocalDate creationDate;
 }

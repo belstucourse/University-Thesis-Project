@@ -24,6 +24,7 @@
         <module>medical-records-service</module>
         <module>zool-api-getaway-server</module>
         <module>auth-service</module>
+        <module>complaint-service</module>
     </modules>
 
     <parent>
