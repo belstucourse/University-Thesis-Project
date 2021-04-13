@@ -13,5 +13,7 @@ public interface UserService {
 
     User getUserByUsername(@NotBlank final String username) throws UserNotFoundException;
 
-    User update(@NotNull final User user);
+    User update(@NotNull final User user) throws UserNotFoundException;
+
+    User delete(@NotNull final Integer id) throws UserNotFoundException;
 }

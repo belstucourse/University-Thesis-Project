@@ -7,6 +7,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import com.belstu.thesisproject.psychouserservice.updater.UserUpdater;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,7 +25,7 @@ import java.util.Set;
 @ToString(callSuper = true)
 @Getter
 @Setter
-public class Psychologist extends User {
+public class Psychologist extends User<Psychologist> {
 
     @Column(name = "is_verified", nullable = false)
     private Boolean verified;
@@ -52,4 +53,9 @@ public class Psychologist extends User {
             joinColumns = @JoinColumn(name = "psychologist_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private Set<Tag> tags;
+
+    @Override
+    public Psychologist update(final UserUpdater userUpdater, final Psychologist newUser) {
+        return userUpdater.update(this, newUser);
+    }
 }

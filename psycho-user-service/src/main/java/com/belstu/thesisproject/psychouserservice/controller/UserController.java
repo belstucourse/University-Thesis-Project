@@ -20,32 +20,35 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/users")
 @AllArgsConstructor
 public class UserController {
-  private final UserService userService;
-  private final UserMapper userMapper;
+    private final UserService userService;
+    private final UserMapper userMapper;
 
-  @GetMapping("/{id}")
-  public UserDto getUserById(@PathVariable final String id) throws UserNotFoundException {
-    return userMapper.map(userService.getUserById(id));
-  }
+    @GetMapping("/{id}")
+    public UserDto getUserById(@PathVariable final String id) throws UserNotFoundException {
+        return userMapper.map(userService.getUserById(id));
+    }
 
-  @GetMapping
-  public UserDto getUserByUsername(@RequestParam final String username)
-      throws UserNotFoundException {
-    return userMapper.map(userService.getUserByUsername(username));
-  }
+    @GetMapping
+    public UserDto getUserByUsername(@RequestParam final String username)
+            throws UserNotFoundException {
+        return userMapper.map(userService.getUserByUsername(username));
+    }
 
-  @PostMapping
-  public UserDto saveUser(@RequestBody final UserDto userDto) {
-    final User user = userMapper.map(userDto);
-    return userMapper.map(userService.save(user));
-  }
-  @PutMapping
-  public UserDto updateUser(@RequestBody final UserDto userDto) {
-    final User user = userMapper.map(userDto);
-    return userMapper.map(userService.update(user));
-  }
+    @PostMapping
+    public UserDto saveUser(@RequestBody final UserDto userDto) {
+        final User user = userMapper.map(userDto);
+        return userMapper.map(userService.save(user));
+    }
 
-  @DeleteMapping
-  public UserDto deleteUser()
+    @PutMapping
+    public UserDto updateUser(@RequestBody final UserDto userDto) throws UserNotFoundException {
+        final User user = userMapper.map(userDto);
+        return userMapper.map(userService.update(user));
+    }
+
+    @DeleteMapping("/{id}")
+    public UserDto deleteById(@PathVariable final Integer id) throws UserNotFoundException {
+        return userMapper.map(userService.delete(id));
+    }
 
 }

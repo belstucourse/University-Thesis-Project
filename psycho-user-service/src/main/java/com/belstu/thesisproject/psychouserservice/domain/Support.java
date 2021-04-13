@@ -1,5 +1,6 @@
 package com.belstu.thesisproject.psychouserservice.domain;
 
+import com.belstu.thesisproject.psychouserservice.updater.UserUpdater;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,8 +16,13 @@ import javax.persistence.ManyToOne;
 @ToString(callSuper = true)
 @Getter
 @Setter
-public class Support extends User {
+public class Support extends User<Support> {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_admin_id")
     private Admin admin;
+
+    @Override
+    public Support update(final UserUpdater userUpdater, final Support newUser) {
+        return userUpdater.update(this, newUser);
+    }
 }

@@ -1,5 +1,6 @@
 package com.belstu.thesisproject.psychouserservice.domain;
 
+import com.belstu.thesisproject.psychouserservice.updater.UserUpdater;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +17,7 @@ import java.util.Set;
 @ToString(callSuper = true)
 @Getter
 @Setter
-public class Client extends User {
+public class Client extends User<Client> {
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
@@ -25,4 +26,9 @@ public class Client extends User {
             cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH},
             fetch = FetchType.LAZY)
     private Set<Psychologist> psychologists;
+
+    @Override
+    public Client update(UserUpdater userUpdater, Client newUser) {
+        return userUpdater.update(this, newUser);
+    }
 }

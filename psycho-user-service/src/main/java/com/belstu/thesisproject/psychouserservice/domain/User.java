@@ -1,9 +1,8 @@
 package com.belstu.thesisproject.psychouserservice.domain;
 
-import lombok.AllArgsConstructor;
+import com.belstu.thesisproject.psychouserservice.updater.UserUpdateVisitor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -25,7 +24,7 @@ import java.util.Set;
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
 @Data
-public abstract class User {
+public abstract class User<T extends User<T>> implements UserUpdateVisitor<T> {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
@@ -41,7 +40,7 @@ public abstract class User {
     @Column(name = "last_name", length = 100, nullable = false)
     private String lastName;
 
-    @Column(name = "register_date",nullable = false, updatable = false)
+    @Column(name = "register_date", nullable = false, updatable = false)
     private LocalDate registerDate;
 
     @Column(name = "is_deactivated", nullable = false)
