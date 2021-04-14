@@ -1,4 +1,4 @@
-package com.belstu.thesisproject.psychouserservice.dto;
+package com.belstu.thesisproject.complaintservice.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

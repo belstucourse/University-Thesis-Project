@@ -1,6 +1,5 @@
-package com.belstu.thesisproject.psychouserservice.dto;
+package com.belstu.thesisproject.complaintservice.dto.user;
 
-import com.belstu.thesisproject.psychouserservice.domain.TagDto;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

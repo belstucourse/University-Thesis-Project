@@ -1,6 +1,6 @@
-package com.belstu.thesisproject.psychouserservice.dto;
+package com.belstu.thesisproject.complaintservice.dto.user;
 
-import com.belstu.thesisproject.psychouserservice.valiadator.CreationValidator;
+import com.belstu.thesisproject.complaintservice.validator.CreationValidator;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

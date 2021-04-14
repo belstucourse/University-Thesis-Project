@@ -16,7 +16,7 @@ import java.util.Set;
 
 @Entity(name = "tag")
 @Data
-public class Tag {
+public class TagDto {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")

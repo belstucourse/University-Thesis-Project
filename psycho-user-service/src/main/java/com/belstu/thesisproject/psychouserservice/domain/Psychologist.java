@@ -8,8 +8,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 import com.belstu.thesisproject.psychouserservice.updater.UserUpdater;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -52,7 +50,7 @@ public class Psychologist extends User<Psychologist> {
             name = "psychologist_tag",
             joinColumns = @JoinColumn(name = "psychologist_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
-    private Set<Tag> tags;
+    private Set<TagDto> tags;
 
     @Override
     public Psychologist update(final UserUpdater userUpdater, final Psychologist newUser) {
