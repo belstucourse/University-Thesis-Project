@@ -11,9 +11,11 @@ public interface UserService {
 
     User save(@NotNull final User user);
 
-    User getUserByUsername(@NotBlank final String username) throws UserNotFoundException;
+    User getUserByEmail(@NotBlank final String username) throws UserNotFoundException;
 
     User update(@NotNull final User user) throws UserNotFoundException;
 
-    User delete(@NotNull final Integer id) throws UserNotFoundException;
+    void delete(@NotNull final String id) throws UserNotFoundException;
+
+    User patch(@NotNull final User user);
 }

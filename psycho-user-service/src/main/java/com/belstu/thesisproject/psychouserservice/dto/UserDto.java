@@ -1,30 +1,24 @@
 package com.belstu.thesisproject.psychouserservice.dto;
 
-import java.time.LocalDate;
-import java.util.Set;
-
-import com.belstu.thesisproject.psychouserservice.domain.Role;
+import com.belstu.thesisproject.psychouserservice.valiadator.OnCreate;
+import com.belstu.thesisproject.psychouserservice.valiadator.OnUpdate;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
-import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
+import javax.validation.constraints.PastOrPresent;
+import java.time.LocalDate;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonTypeInfo(use=JsonTypeInfo.Id.NAME, property = "type")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
 @JsonSubTypes({
         @JsonSubTypes.Type(SupportDto.class),
         @JsonSubTypes.Type(PsychologistDto.class),
@@ -32,25 +26,33 @@ import javax.persistence.ManyToMany;
         @JsonSubTypes.Type(AdminDto.class)
 })
 public abstract class UserDto {
-  private String id;
+    @Null(groups = OnCreate.class)
+    @NotBlank(groups = OnUpdate.class)
+    private String id;
+    @NotBlank
+    private String firstName;
+    @NotBlank
+    private String middleName;
+    @NotBlank
+    private String lastName;
 
-  private String firstName;
+    @PastOrPresent(groups = OnUpdate.class)
+    @Null(groups = OnCreate.class)
+    private LocalDate registerDate;
 
-  private String middleName;
+    private Boolean deactivated;
 
-  private String lastName;
+    private LocalDate deactivatedDate;
 
-  private LocalDate registerDate;
+    private String imageUrl;
 
-  private Boolean deactivated;
+    @NotBlank
+    private String email;
 
-  private LocalDate deactivatedDate;
+    @NotBlank(groups = OnCreate.class)
+    private String password;
 
-  private String imageUrl;
-
-  private String email;
-
-  private String password;
-
-  private Set<RoleDto> roles;
+    @Null(groups = OnCreate.class)
+    @NotNull(groups = OnUpdate.class)
+    private Set<RoleDto> roles;
 }

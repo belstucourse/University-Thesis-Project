@@ -5,7 +5,6 @@ import com.belstu.thesisproject.psychouserservice.domain.Client;
 import com.belstu.thesisproject.psychouserservice.domain.Psychologist;
 import com.belstu.thesisproject.psychouserservice.domain.Support;
 import com.belstu.thesisproject.psychouserservice.domain.User;
-import com.belstu.thesisproject.psychouserservice.dto.UserDto;
 import com.belstu.thesisproject.psychouserservice.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
