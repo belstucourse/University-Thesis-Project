@@ -1,4 +1,3 @@
 package com.belstu.thesisproject.complaintservice.validator;
 
-public interface CreationValidator {
-}
+public interface CreationValidator {}

@@ -4,55 +4,51 @@ import com.belstu.thesisproject.psychouserservice.valiadator.OnCreate;
 import com.belstu.thesisproject.psychouserservice.valiadator.OnUpdate;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import java.time.LocalDate;
+import java.util.Set;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.PastOrPresent;
-import java.time.LocalDate;
-import java.util.Set;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
 @JsonSubTypes({
-        @JsonSubTypes.Type(SupportDto.class),
-        @JsonSubTypes.Type(PsychologistDto.class),
-        @JsonSubTypes.Type(ClientDto.class),
-        @JsonSubTypes.Type(AdminDto.class)
+  @JsonSubTypes.Type(SupportDto.class),
+  @JsonSubTypes.Type(PsychologistDto.class),
+  @JsonSubTypes.Type(ClientDto.class),
+  @JsonSubTypes.Type(AdminDto.class)
 })
 public abstract class UserDto {
-    @Null(groups = OnCreate.class)
-    @NotBlank(groups = OnUpdate.class)
-    private String id;
-    @NotBlank
-    private String firstName;
-    @NotBlank
-    private String middleName;
-    @NotBlank
-    private String lastName;
+  @Null(groups = OnCreate.class)
+  @NotBlank(groups = OnUpdate.class)
+  private String id;
 
-    @PastOrPresent(groups = OnUpdate.class)
-    @Null(groups = OnCreate.class)
-    private LocalDate registerDate;
+  @NotBlank private String firstName;
+  @NotBlank private String middleName;
+  @NotBlank private String lastName;
 
-    private Boolean deactivated;
+  @PastOrPresent(groups = OnUpdate.class)
+  @Null(groups = OnCreate.class)
+  private LocalDate registerDate;
 
-    private LocalDate deactivatedDate;
+  private Boolean deactivated;
 
-    private String imageUrl;
+  private LocalDate deactivatedDate;
 
-    @NotBlank
-    private String email;
+  private String imageUrl;
 
-    @NotBlank(groups = OnCreate.class)
-    private String password;
+  @NotBlank private String email;
 
-    @Null(groups = OnCreate.class)
-    @NotNull(groups = OnUpdate.class)
-    private Set<RoleDto> roles;
+  @NotBlank(groups = OnCreate.class)
+  private String password;
+
+  @Null(groups = OnCreate.class)
+  @NotNull(groups = OnUpdate.class)
+  private Set<RoleDto> roles;
 }

@@ -1,5 +1,7 @@
 package com.belstu.thesisproject.complaintservice.controller;
 
+import static org.springframework.http.HttpStatus.OK;
+
 import com.belstu.thesisproject.complaintservice.domain.Complaint;
 import com.belstu.thesisproject.complaintservice.dto.complaint.ComplaintDto;
 import com.belstu.thesisproject.complaintservice.mapper.ComplaintMapper;
@@ -16,40 +18,38 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import static org.springframework.http.HttpStatus.OK;
-
 @RestController
 @RequestMapping("/api/complaint")
 @AllArgsConstructor
 public class ComplaintController {
-    private final ComplaintService complaintService;
-    private final ComplaintMapper complaintMapper;
+  private final ComplaintService complaintService;
+  private final ComplaintMapper complaintMapper;
 
-    @GetMapping("/{id}")
-    public ComplaintDto getComplaintById(@PathVariable final String id) {
-        return complaintMapper.map(complaintService.getComplaintById(id));
-    }
+  @GetMapping("/{id}")
+  public ComplaintDto getComplaintById(@PathVariable final String id) {
+    return complaintMapper.map(complaintService.getComplaintById(id));
+  }
 
-    @GetMapping
-    public ComplaintDto getComplaintByClientId(@RequestParam final String clientId) {
-        return complaintMapper.map(complaintService.getComplaintByClientId(clientId));
-    }
+  @GetMapping
+  public ComplaintDto getComplaintByClientId(@RequestParam final String clientId) {
+    return complaintMapper.map(complaintService.getComplaintByClientId(clientId));
+  }
 
-    @PostMapping
-    public ComplaintDto saveComplaint(@RequestBody final ComplaintDto complaintDto) {
-        final Complaint complaint = complaintMapper.map(complaintDto);
-        return complaintMapper.map(complaintService.save(complaint));
-    }
+  @PostMapping
+  public ComplaintDto saveComplaint(@RequestBody final ComplaintDto complaintDto) {
+    final Complaint complaint = complaintMapper.map(complaintDto);
+    return complaintMapper.map(complaintService.save(complaint));
+  }
 
-    @PutMapping
-    public ComplaintDto updateComplaint(@RequestBody final ComplaintDto complaintDto) {
-        final Complaint complaint = complaintMapper.map(complaintDto);
-        return complaintMapper.map(complaintService.update(complaint));
-    }
+  @PutMapping
+  public ComplaintDto updateComplaint(@RequestBody final ComplaintDto complaintDto) {
+    final Complaint complaint = complaintMapper.map(complaintDto);
+    return complaintMapper.map(complaintService.update(complaint));
+  }
 
-    @DeleteMapping("/{id}")
-    @ResponseStatus(OK)
-    public void deleteById(@PathVariable final String id) {
-        complaintService.delete(id);
-    }
+  @DeleteMapping("/{id}")
+  @ResponseStatus(OK)
+  public void deleteById(@PathVariable final String id) {
+    complaintService.delete(id);
+  }
 }

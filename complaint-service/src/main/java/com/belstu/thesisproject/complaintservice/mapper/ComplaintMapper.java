@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 
 @Mapper
 public interface ComplaintMapper {
-    ComplaintDto map(final Complaint entity);
+  ComplaintDto map(final Complaint entity);
 
-    Complaint map(final ComplaintDto dto);
+  Complaint map(final ComplaintDto dto);
 }

@@ -1,4 +1,3 @@
 package com.belstu.thesisproject.psychouserservice.valiadator;
 
-public interface OnUpdate {
-}
+public interface OnUpdate {}

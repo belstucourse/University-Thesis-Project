@@ -28,51 +28,51 @@ import static java.time.LocalDate.now;
 @Inheritance(strategy = InheritanceType.JOINED)
 @Data
 public abstract class User<T extends User<T>> implements UserUpdateVisitor<T> {
-    @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "id", columnDefinition = "VARCHAR(255)")
-    private String id;
+  @Id
+  @GeneratedValue(generator = "uuid2")
+  @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
+  @Column(name = "id", columnDefinition = "VARCHAR(255)")
+  private String id;
 
-    @Column(name = "first_name", length = 100, nullable = false)
-    private String firstName;
+  @Column(name = "first_name", length = 100, nullable = false)
+  private String firstName;
 
-    @Column(name = "middle_name", length = 100, nullable = false)
-    private String middleName;
+  @Column(name = "middle_name", length = 100, nullable = false)
+  private String middleName;
 
-    @Column(name = "last_name", length = 100, nullable = false)
-    private String lastName;
+  @Column(name = "last_name", length = 100, nullable = false)
+  private String lastName;
 
-    @Column(name = "register_date", nullable = false, updatable = false)
-    private LocalDate registerDate;
+  @Column(name = "register_date", nullable = false, updatable = false)
+  private LocalDate registerDate;
 
-    @Column(name = "is_deactivated", nullable = false)
-    private Boolean deactivated;
+  @Column(name = "is_deactivated", nullable = false)
+  private Boolean deactivated;
 
-    @Column(name = "deactivated_date")
-    private LocalDate deactivatedDate;
+  @Column(name = "deactivated_date")
+  private LocalDate deactivatedDate;
 
-    @Column(name = "image_url")
-    private String imageUrl;
+  @Column(name = "image_url")
+  private String imageUrl;
 
-    @Column(name = "email", unique = true, length = 100, nullable = false)
-    private String email;
+  @Column(name = "email", unique = true, length = 100, nullable = false)
+  private String email;
 
-    @Column(name = "password", nullable = false)
-    private String password;
+  @Column(name = "password", nullable = false)
+  private String password;
 
-    @EqualsAndHashCode.Exclude
-    @ToString.Exclude
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "user_role",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+  @EqualsAndHashCode.Exclude
+  @ToString.Exclude
+  @ManyToMany(fetch = FetchType.LAZY)
+  @JoinTable(
+      name = "user_role",
+      joinColumns = @JoinColumn(name = "user_id"),
+      inverseJoinColumns = @JoinColumn(name = "role_id"))
+  private Set<Role> roles;
 
-    @PrePersist
-    protected void onCreate() {
-        registerDate = now();
-        deactivated = false;
-    }
+  @PrePersist
+  protected void onCreate() {
+    registerDate = now();
+    deactivated = false;
+  }
 }
