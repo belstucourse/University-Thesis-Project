@@ -1,9 +1,10 @@
-package com.belstu.thesisproject.psychouserservice.service;
+package com.belstu.thesisproject.psychouserservice.service.impl;
 
 import com.belstu.thesisproject.psychouserservice.domain.User;
 import com.belstu.thesisproject.psychouserservice.exception.UserNotFoundException;
+import com.belstu.thesisproject.psychouserservice.repository.RoleRepository;
 import com.belstu.thesisproject.psychouserservice.repository.UserRepository;
-import com.belstu.thesisproject.psychouserservice.service.impl.UserService;
+import com.belstu.thesisproject.psychouserservice.service.UserService;
 import com.belstu.thesisproject.psychouserservice.updater.UserUpdater;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.NotBlank;
@@ -18,6 +19,7 @@ import org.springframework.validation.annotation.Validated;
 public class UserServiceImpl implements UserService {
   private final UserRepository userRepository;
   private final UserUpdater userUpdater;
+  private final RoleRepository roleRepository;
 
   @Override
   public User getUserById(@NotNull final String id) throws UserNotFoundException {

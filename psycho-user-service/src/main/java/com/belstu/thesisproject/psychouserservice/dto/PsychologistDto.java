@@ -1,6 +1,5 @@
 package com.belstu.thesisproject.psychouserservice.dto;
 
-import com.belstu.thesisproject.psychouserservice.domain.TagDto;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import java.time.LocalDate;
 import java.util.Set;

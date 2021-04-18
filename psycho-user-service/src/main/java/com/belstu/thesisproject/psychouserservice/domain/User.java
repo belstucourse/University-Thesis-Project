@@ -1,11 +1,10 @@
 package com.belstu.thesisproject.psychouserservice.domain;
 
-import com.belstu.thesisproject.psychouserservice.updater.UserUpdateVisitor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-import org.hibernate.annotations.GenericGenerator;
+import static java.time.LocalDate.now;
 
+import com.belstu.thesisproject.psychouserservice.updater.UserUpdateVisitor;
+import java.time.LocalDate;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,10 +17,10 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
-import java.time.LocalDate;
-import java.util.Set;
-
-import static java.time.LocalDate.now;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "users")

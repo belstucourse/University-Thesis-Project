@@ -48,7 +48,7 @@ public class Psychologist extends User<Psychologist> {
       name = "psychologist_tag",
       joinColumns = @JoinColumn(name = "psychologist_id"),
       inverseJoinColumns = @JoinColumn(name = "tag_id"))
-  private Set<TagDto> tags;
+  private Set<Tag> tags;
 
   @Override
   public Psychologist update(final UserUpdater userUpdater, final Psychologist newUser) {

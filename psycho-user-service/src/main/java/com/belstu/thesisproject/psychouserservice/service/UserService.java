@@ -1,4 +1,4 @@
-package com.belstu.thesisproject.psychouserservice.service.impl;
+package com.belstu.thesisproject.psychouserservice.service;
 
 import com.belstu.thesisproject.psychouserservice.domain.User;
 import com.belstu.thesisproject.psychouserservice.exception.UserNotFoundException;

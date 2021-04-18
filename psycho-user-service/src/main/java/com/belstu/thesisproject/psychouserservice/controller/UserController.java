@@ -3,10 +3,9 @@ package com.belstu.thesisproject.psychouserservice.controller;
 import static org.springframework.http.HttpStatus.OK;
 
 import com.belstu.thesisproject.psychouserservice.domain.User;
-import com.belstu.thesisproject.psychouserservice.dto.UserDto;
 import com.belstu.thesisproject.psychouserservice.exception.UserNotFoundException;
 import com.belstu.thesisproject.psychouserservice.mapper.UserMapper;
-import com.belstu.thesisproject.psychouserservice.service.impl.UserService;
+import com.belstu.thesisproject.psychouserservice.service.UserService;
 import com.belstu.thesisproject.psychouserservice.valiadator.OnCreate;
 import com.belstu.thesisproject.psychouserservice.valiadator.OnUpdate;
 import javax.validation.Valid;
@@ -33,32 +32,38 @@ public class UserController {
   private final UserMapper userMapper;
 
   @GetMapping("/{id}")
-  public UserDto getUserById(@PathVariable final String id) throws UserNotFoundException {
+  public com.belstu.thesisproject.psychouserservice.dto.UserDto getUserById(
+      @PathVariable final String id) throws UserNotFoundException {
     return userMapper.map(userService.getUserById(id));
   }
 
   @GetMapping
-  public UserDto getUserByEmail(@RequestParam final String email) throws UserNotFoundException {
+  public com.belstu.thesisproject.psychouserservice.dto.UserDto getUserByEmail(
+      @RequestParam final String email) throws UserNotFoundException {
     return userMapper.map(userService.getUserByEmail(email));
   }
 
   @PostMapping
   @Validated(OnCreate.class)
-  public UserDto saveUser(@RequestBody @Valid final UserDto userDto) {
+  public com.belstu.thesisproject.psychouserservice.dto.UserDto saveUser(
+      @RequestBody @Valid final com.belstu.thesisproject.psychouserservice.dto.UserDto userDto) {
     final User user = userMapper.map(userDto);
     return userMapper.map(userService.save(user));
   }
 
   @PutMapping
   @Validated(OnUpdate.class)
-  public UserDto updateUser(@RequestBody @Valid final UserDto userDto)
+  public com.belstu.thesisproject.psychouserservice.dto.UserDto updateUser(
+      @RequestBody @Valid final com.belstu.thesisproject.psychouserservice.dto.UserDto userDto)
       throws UserNotFoundException {
     final User user = userMapper.map(userDto);
     return userMapper.map(userService.update(user));
   }
 
   @PatchMapping
-  public UserDto patchUser(@RequestBody final UserDto userDto) throws UserNotFoundException {
+  public com.belstu.thesisproject.psychouserservice.dto.UserDto patchUser(
+      @RequestBody final com.belstu.thesisproject.psychouserservice.dto.UserDto userDto)
+      throws UserNotFoundException {
     final User user = userMapper.map(userDto);
     return userMapper.map(userService.patch(user));
   }

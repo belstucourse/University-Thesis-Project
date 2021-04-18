@@ -12,7 +12,6 @@ import com.belstu.thesisproject.psychouserservice.dto.AdminDto;
 import com.belstu.thesisproject.psychouserservice.dto.ClientDto;
 import com.belstu.thesisproject.psychouserservice.dto.PsychologistDto;
 import com.belstu.thesisproject.psychouserservice.dto.SupportDto;
-import com.belstu.thesisproject.psychouserservice.dto.UserDto;
 import com.belstu.thesisproject.psychouserservice.exception.ClassCastException;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
@@ -42,7 +41,7 @@ public interface UserMapper {
   @InheritInverseConfiguration
   AdminDto map(Admin entity);
 
-  default UserDto map(final User entity) {
+  default com.belstu.thesisproject.psychouserservice.dto.UserDto map(final User entity) {
     if (entity instanceof Client) {
       return map((Client) entity);
     } else if (entity instanceof Admin) {
@@ -58,7 +57,7 @@ public interface UserMapper {
   }
 
   @InheritInverseConfiguration
-  default User map(final UserDto dto) {
+  default User map(final com.belstu.thesisproject.psychouserservice.dto.UserDto dto) {
     if (dto instanceof ClientDto) {
       return map((ClientDto) dto);
     } else if (dto instanceof AdminDto) {

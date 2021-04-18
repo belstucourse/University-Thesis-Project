@@ -15,7 +15,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity(name = "tag")
 @Data
-public class TagDto {
+public class Tag {
   @Id
   @GeneratedValue(generator = "uuid2")
   @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
