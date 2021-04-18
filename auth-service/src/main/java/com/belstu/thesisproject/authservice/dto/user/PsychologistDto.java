@@ -1,14 +1,12 @@
 package com.belstu.thesisproject.authservice.dto.user;
 
-import com.belstu.thesisproject.psychouserservice.domain.Tag;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import java.time.LocalDate;
+import java.util.Set;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
-import java.time.LocalDate;
-import java.util.Set;
 
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
@@ -16,19 +14,45 @@ import java.util.Set;
 @Setter
 @JsonTypeName("psychologist")
 public class PsychologistDto extends UserDto {
-    private Boolean verified;
+  private Boolean verified;
 
-    private LocalDate verifiedDate;
+  private LocalDate verifiedDate;
 
-    private String mobile;
+  private String mobile;
 
-    private Set<Tag> tags;
+  private Set<TagDto> tags;
 
-    public PsychologistDto(String id, String firstName, String middleName, String lastName, LocalDate registerDate, Boolean deactivated, LocalDate deactivatedDate, String imageUrl, String email, String password, Set<RoleDto> roles, Boolean verified, LocalDate verifiedDate, String mobile, Set<Tag> tags) {
-        super(id, firstName, middleName, lastName, registerDate, deactivated, deactivatedDate, imageUrl, email, password, roles);
-        this.verified = verified;
-        this.verifiedDate = verifiedDate;
-        this.mobile = mobile;
-        this.tags = tags;
-    }
+  public PsychologistDto(
+      String id,
+      String firstName,
+      String middleName,
+      String lastName,
+      LocalDate registerDate,
+      Boolean deactivated,
+      LocalDate deactivatedDate,
+      String imageUrl,
+      String email,
+      String password,
+      Set<RoleDto> roles,
+      Boolean verified,
+      LocalDate verifiedDate,
+      String mobile,
+      Set<TagDto> tags) {
+    super(
+        id,
+        firstName,
+        middleName,
+        lastName,
+        registerDate,
+        deactivated,
+        deactivatedDate,
+        imageUrl,
+        email,
+        password,
+        roles);
+    this.verified = verified;
+    this.verifiedDate = verifiedDate;
+    this.mobile = mobile;
+    this.tags = tags;
+  }
 }

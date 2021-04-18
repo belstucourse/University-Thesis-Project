@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Violation {
-    private final String fieldName;
+  private final String fieldName;
 
-    private final String message;
+  private final String message;
 }
