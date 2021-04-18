@@ -1,4 +1,4 @@
 package com.belstu.thesisproject.psychouserservice.valiadator;
 
-public interface CreationValidator {
+public interface OnCreate {
 }

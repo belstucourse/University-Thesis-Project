@@ -13,5 +13,5 @@ public interface ComplaintService {
 
     Complaint update(final Complaint complaint);
 
-    Complaint delete(final @NotNull Integer id);
+    void delete(final @NotNull String id);
 }

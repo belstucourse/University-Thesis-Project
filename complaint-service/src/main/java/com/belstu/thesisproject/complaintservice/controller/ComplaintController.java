@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequestMapping("/api/complaint")
@@ -28,7 +31,7 @@ public class ComplaintController {
     }
 
     @GetMapping
-    public ComplaintDto getComplaintByClientId(@RequestParam final String clientId){
+    public ComplaintDto getComplaintByClientId(@RequestParam final String clientId) {
         return complaintMapper.map(complaintService.getComplaintByClientId(clientId));
     }
 
@@ -39,13 +42,14 @@ public class ComplaintController {
     }
 
     @PutMapping
-    public ComplaintDto updateComplaint(@RequestBody final ComplaintDto complaintDto){
+    public ComplaintDto updateComplaint(@RequestBody final ComplaintDto complaintDto) {
         final Complaint complaint = complaintMapper.map(complaintDto);
         return complaintMapper.map(complaintService.update(complaint));
     }
 
     @DeleteMapping("/{id}")
-    public ComplaintDto deleteById(@PathVariable final Integer id) {
-        return complaintMapper.map(complaintService.delete(id));
+    @ResponseStatus(OK)
+    public void deleteById(@PathVariable final String id) {
+        complaintService.delete(id);
     }
 }

@@ -7,12 +7,15 @@ import com.belstu.thesisproject.psychouserservice.service.impl.UserService;
 import com.belstu.thesisproject.psychouserservice.updater.UserUpdater;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Service
 @AllArgsConstructor
+@Validated
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserUpdater userUpdater;
@@ -28,8 +31,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserByUsername(@NotBlank final String username) throws UserNotFoundException {
-        return userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
+    public User getUserByEmail(@NotBlank final String username) throws UserNotFoundException {
+        return userRepository.findByEmail(username).orElseThrow(() -> new EntityNotFoundException(username));
     }
 
     @Override
@@ -39,7 +42,12 @@ public class UserServiceImpl implements UserService {
         return existingUser.update(userUpdater, newUser);
     }
 
-    public User delete(@NotNull final Integer id) throws UserNotFoundException {
-        return userRepository.deleteById(id).orElseThrow(() -> new UserNotFoundException(id.toString()));
+    public void delete(@NotNull final String id) throws UserNotFoundException {
+        userRepository.deleteById(id);
+    }
+
+    @Override
+    public User patch(@NotNull User user) {
+        return null;
     }
 }

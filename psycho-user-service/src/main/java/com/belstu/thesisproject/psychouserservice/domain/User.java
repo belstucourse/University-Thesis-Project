@@ -16,9 +16,12 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import java.time.LocalDate;
 import java.util.Set;
+
+import static java.time.LocalDate.now;
 
 @Entity
 @Table(name = "users")
@@ -49,7 +52,7 @@ public abstract class User<T extends User<T>> implements UserUpdateVisitor<T> {
     @Column(name = "deactivated_date")
     private LocalDate deactivatedDate;
 
-    @Column(name = "image_url", unique = true)
+    @Column(name = "image_url")
     private String imageUrl;
 
     @Column(name = "email", unique = true, length = 100, nullable = false)
@@ -66,4 +69,10 @@ public abstract class User<T extends User<T>> implements UserUpdateVisitor<T> {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+
+    @PrePersist
+    protected void onCreate() {
+        registerDate = now();
+        deactivated = false;
+    }
 }

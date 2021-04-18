@@ -6,6 +6,11 @@ spring:
     username: ${POSTGRES_DATABASE_USERNAME:postgres}
     password: ${POSTGRES_DATABASE_PASSWORD:1234}
   jpa:
+    properties:
+      javax:
+        persistence:
+          validation:
+            mode: 'none'
 #    properties:
 #      hibernate:
 #        temp:
@@ -14,3 +19,6 @@ spring:
 #          lob:
 #            non_contextual_creation: true
     generate-ddl: true
+springdoc:
+  api-docs:
+    path: '/api-docs'
