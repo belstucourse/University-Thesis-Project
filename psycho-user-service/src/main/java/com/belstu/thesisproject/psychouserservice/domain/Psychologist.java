@@ -2,13 +2,9 @@ package com.belstu.thesisproject.psychouserservice.domain;
 
 import com.belstu.thesisproject.psychouserservice.updater.UserUpdater;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -49,6 +45,10 @@ public class Psychologist extends User<Psychologist> {
       joinColumns = @JoinColumn(name = "psychologist_id"),
       inverseJoinColumns = @JoinColumn(name = "tag_id"))
   private Set<Tag> tags;
+
+  @ElementCollection
+  @CollectionTable(name = "psychologist_posts", joinColumns = @JoinColumn(name = "psychologist_id"))
+  private List<String> postIds;
 
   @Override
   public Psychologist update(final UserUpdater userUpdater, final Psychologist newUser) {
