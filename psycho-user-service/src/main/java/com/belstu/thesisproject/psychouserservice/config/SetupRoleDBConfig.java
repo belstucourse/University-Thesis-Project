@@ -11,23 +11,24 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.transaction.Transactional;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class SetupRoleDBConfig implements ApplicationListener<ContextRefreshedEvent> {
   boolean alreadySetup = false;
 
-  private UserRepository userRepository;
+  private final UserRepository userRepository;
 
-  private RoleRepository roleRepository;
+  private final RoleRepository roleRepository;
 
-  private AuthorityRepository authorityRepository;
+  private final AuthorityRepository authorityRepository;
 
-  private PasswordEncoder passwordEncoder;
+  private final PasswordEncoder passwordEncoder;
 
   @Override
   @Transactional
