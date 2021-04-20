@@ -25,6 +25,7 @@
         <module>zool-api-getaway-server</module>
         <module>auth-service</module>
         <module>complaint-service</module>
+        <module>psycho-posts-service</module>
     </modules>
 
     <parent>
