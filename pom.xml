@@ -26,6 +26,7 @@
         <module>auth-service</module>
         <module>complaint-service</module>
         <module>psycho-posts-service</module>
+        <module>video-call-service</module>
     </modules>
 
     <parent>
