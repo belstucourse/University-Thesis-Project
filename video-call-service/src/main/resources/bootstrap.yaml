@@ -1,0 +1,17 @@
+# Application-wide configuration
+spring:
+  application:
+    name: video-call-service
+
+  # Obtain config from config service
+  cloud:
+    config:
+      uri: http://localhost:8003
+      name: psycho-posts-service
+      fail-fast: false
+
+# Connect to Eureka
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
