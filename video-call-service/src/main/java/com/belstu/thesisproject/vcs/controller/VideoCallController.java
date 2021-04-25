@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class VideoCallController {
     @RequestMapping(method = RequestMethod.GET, value = "/2")
-    @ResponseBody
     public String index() {
-        return "index.html";
+        return "static/index.html";
     }
 }

@@ -5,12 +5,11 @@ import com.belstu.thesisproject.psychouserservice.domain.User;
 import com.belstu.thesisproject.psychouserservice.dto.UserRole;
 import com.belstu.thesisproject.psychouserservice.repository.RoleRepository;
 import com.belstu.thesisproject.psychouserservice.service.RoleService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
+import java.util.Set;
 import javax.management.relation.RoleNotFoundException;
 import javax.validation.constraints.NotNull;
-import java.util.Set;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor

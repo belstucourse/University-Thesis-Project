@@ -3,11 +3,10 @@ package com.belstu.thesisproject.psychouserservice.service.impl;
 import com.belstu.thesisproject.psychouserservice.domain.Authority;
 import com.belstu.thesisproject.psychouserservice.repository.AuthorityRepository;
 import com.belstu.thesisproject.psychouserservice.service.AuthorityService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
 import javax.management.relation.RoleNotFoundException;
 import javax.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
