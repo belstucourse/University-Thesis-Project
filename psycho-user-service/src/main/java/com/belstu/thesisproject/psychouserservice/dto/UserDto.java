@@ -48,7 +48,5 @@ public abstract class UserDto {
   @NotBlank(groups = OnCreate.class)
   private String password;
 
-  @Null(groups = OnCreate.class)
-  @NotNull(groups = OnUpdate.class)
-  private Set<RoleDto> roles;
+  @NotNull private Set<RoleDto> roles;
 }

@@ -1,82 +1,101 @@
 package com.belstu.thesisproject.psychouserservice.config;
 
-import static java.util.Arrays.asList;
-
 import com.belstu.thesisproject.psychouserservice.domain.Authority;
 import com.belstu.thesisproject.psychouserservice.domain.Role;
 import com.belstu.thesisproject.psychouserservice.repository.AuthorityRepository;
 import com.belstu.thesisproject.psychouserservice.repository.RoleRepository;
-import com.belstu.thesisproject.psychouserservice.repository.UserRepository;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.ApplicationListener;
-import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class SetupRoleDBConfig implements ApplicationListener<ContextRefreshedEvent> {
-  boolean alreadySetup = false;
-
-  private final UserRepository userRepository;
+public class SetupRoleDBConfig {
+  private final CSVDataLoader csvDataLoader;
+  private static final String AUTHORITY_FILE_PATH = "authorities.csv";
+  private static final String ROLES_FILE = "roles.csv";
+  private static final String ROLES_AUTHORITIES_FILE = "authorities-roles.csv";
 
   private final RoleRepository roleRepository;
-
   private final AuthorityRepository authorityRepository;
 
-  private final PasswordEncoder passwordEncoder;
+  public List<Role> getRoles() {
+    final List<Authority> authorities = getAuthorities();
+    final List<Role> roles = csvDataLoader.loadObjectList(Role.class, ROLES_FILE);
+    final List<String[]> rolesAuthorities =
+        csvDataLoader.loadManyToManyRelationship(ROLES_AUTHORITIES_FILE);
 
-  @Override
-  @Transactional
-  public void onApplicationEvent(final ContextRefreshedEvent event) {
-
-    if (alreadySetup) return;
-    final Authority readAuthority = createAuthorityIfNotFound("READ");
-    final Authority writeAuthority = createAuthorityIfNotFound("WRITE");
-    final Authority updateAuthority = createAuthorityIfNotFound("UPDATE");
-    final Authority deleteAuthority = createAuthorityIfNotFound("DELETE");
-
-    final Set<Authority> adminAuthorities =
-        new HashSet<>(asList(readAuthority, writeAuthority, updateAuthority, deleteAuthority));
-    final Set<Authority> clientAuthorities =
-        new HashSet<>(asList(readAuthority, writeAuthority, updateAuthority));
-    final Set<Authority> supportAuthorities =
-        new HashSet<>(asList(readAuthority, writeAuthority, updateAuthority, deleteAuthority));
-    final Set<Authority> psychologistAuthorities =
-        new HashSet<>(asList(readAuthority, writeAuthority, updateAuthority));
-
-    createRoleIfNotFound("ROLE_ADMIN", adminAuthorities);
-    createRoleIfNotFound("ROLE_CLIENT", clientAuthorities);
-    createRoleIfNotFound("ROLE_SUPPORT", supportAuthorities);
-    createRoleIfNotFound("ROLE_PSYCHOLOGIST", psychologistAuthorities);
-
-    alreadySetup = true;
+    for (String[] roleAuthority : rolesAuthorities) {
+      final Role role = findRoleByName(roles, roleAuthority[0]);
+      Set<Authority> authoritySet = role.getAuthorities();
+      if (authoritySet == null) {
+        authoritySet = new HashSet<>();
+      }
+      authoritySet.add(findAuthorityByName(authorities, roleAuthority[1]));
+      role.setAuthorities(authoritySet);
+    }
+    return roles;
   }
 
-  private Authority createAuthorityIfNotFound(final String name) {
-
-    return authorityRepository.findByName(name).orElse(createAuthority(name));
+  public List<Authority> getAuthorities() {
+    return csvDataLoader.loadObjectList(Authority.class, AUTHORITY_FILE_PATH);
   }
 
-  private Authority createAuthority(final String name) {
-    final Authority authority = new Authority();
-    authority.setName(name);
-    return authorityRepository.save(authority);
+  private Role findRoleByName(List<Role> roles, String roleName) {
+    return roles.stream()
+        .filter(item -> item.getUserRole().name().equals(roleName))
+        .findFirst()
+        .orElseGet(Role::new);
   }
 
-  private Role createRoleIfNotFound(final String name, final Set<Authority> authorities) {
-
-    return roleRepository.findByName(name).orElse(createRole(name, authorities));
+  private Authority findAuthorityByName(
+      final List<Authority> authorities, final String authorityName) {
+    return authorities.stream()
+        .filter(item -> item.getName().equals(authorityName))
+        .findFirst()
+        .orElseGet(Authority::new);
   }
 
-  private Role createRole(final String name, final Set<Authority> authorities) {
-    final Role role = new Role();
-    role.setName(name);
-    role.setAuthorities(authorities);
+  private void setupRolesAndAuthorities() {
+    final List<Authority> authorities = getAuthorities();
+    for (Authority authority : authorities) {
+      setupAuthorities(authority);
+    }
+
+    List<Role> roles = getRoles();
+    for (Role role : roles) {
+      setupRole(role);
+    }
+  }
+
+  public void setupAuthorities(final Authority authority) {
+    authorityRepository
+        .findByName(authority.getName())
+        .orElseGet(() -> authorityRepository.save(authority));
+  }
+
+  public void setupRole(final Role role) {
+    roleRepository.findByUserRole(role.getUserRole()).orElseGet(() -> prepareRole(role));
+  }
+
+  public Role prepareRole(final Role role) {
+    Set<Authority> authorities = role.getAuthorities();
+    Set<Authority> persistedAuthorities = new HashSet<>();
+    for (Authority authority : authorities) {
+      persistedAuthorities.add(
+          authorityRepository.findByName(authority.getName()).orElseGet(Authority::new));
+    }
+    role.setAuthorities(persistedAuthorities);
     return roleRepository.save(role);
+  }
+
+  @PostConstruct
+  @Transactional
+  public void setupData() {
+    setupRolesAndAuthorities();
   }
 }

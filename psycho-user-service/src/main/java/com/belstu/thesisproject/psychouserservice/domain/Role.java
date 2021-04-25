@@ -1,18 +1,23 @@
 package com.belstu.thesisproject.psychouserservice.domain;
 
-import java.util.Set;
+import com.belstu.thesisproject.psychouserservice.dto.UserRole;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-import org.hibernate.annotations.GenericGenerator;
+import java.util.Set;
+
+import static javax.persistence.EnumType.STRING;
 
 @Entity
 @Table(name = "roles")
@@ -24,14 +29,15 @@ public class Role {
   @Column(name = "id", columnDefinition = "VARCHAR(255)")
   private String id;
 
-  @Column(name = "name", nullable = false, length = 50, unique = true, updatable = false)
-  private String name;
+  @Column(name = "user_role", nullable = false, length = 50, unique = true, updatable = false)
+  @Enumerated(STRING)
+  private UserRole userRole;
 
   @EqualsAndHashCode.Exclude
   @ToString.Exclude
   @ManyToMany(
       mappedBy = "roles",
-      cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.REMOVE},
+      cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH},
       fetch = FetchType.LAZY)
   private Set<User> users;
 
@@ -39,7 +45,7 @@ public class Role {
   @ToString.Exclude
   @ManyToMany(
       mappedBy = "roles",
-      cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.REMOVE},
-      fetch = FetchType.LAZY)
+      fetch = FetchType.LAZY,
+      cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
   private Set<Authority> authorities;
 }

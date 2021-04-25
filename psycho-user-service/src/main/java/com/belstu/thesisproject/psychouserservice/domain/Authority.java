@@ -1,6 +1,7 @@
 package com.belstu.thesisproject.psychouserservice.domain;
 
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -31,7 +32,9 @@ public class Authority {
 
   @EqualsAndHashCode.Exclude
   @ToString.Exclude
-  @ManyToMany(fetch = FetchType.LAZY)
+  @ManyToMany(
+      fetch = FetchType.LAZY,
+      cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.PERSIST})
   @JoinTable(
       name = "role_authority",
       joinColumns = @JoinColumn(name = "authority_id"),

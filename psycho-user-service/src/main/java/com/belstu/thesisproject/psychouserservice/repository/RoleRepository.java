@@ -1,9 +1,14 @@
 package com.belstu.thesisproject.psychouserservice.repository;
 
 import com.belstu.thesisproject.psychouserservice.domain.Role;
-import java.util.Optional;
+import com.belstu.thesisproject.psychouserservice.dto.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
+import java.util.Set;
+
 public interface RoleRepository extends JpaRepository<Role, String> {
-  Optional<Role> findByName(String name);
+    Optional<Role> findByUserRole(UserRole userRole);
+
+    Set<Role> findAllByUserRole(Set<UserRole> userRoles);
 }
