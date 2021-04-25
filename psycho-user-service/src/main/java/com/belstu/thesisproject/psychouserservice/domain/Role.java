@@ -1,11 +1,9 @@
 package com.belstu.thesisproject.psychouserservice.domain;
 
-import com.belstu.thesisproject.psychouserservice.dto.UserRole;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-import org.hibernate.annotations.GenericGenerator;
+import static javax.persistence.EnumType.STRING;
 
+import com.belstu.thesisproject.psychouserservice.dto.UserRole;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,9 +13,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import java.util.Set;
-
-import static javax.persistence.EnumType.STRING;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "roles")
